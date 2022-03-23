@@ -1,5 +1,5 @@
-#include<stdio.h>
-int main(){
-    printf("Hello this is Aswin!");
-    return 0;
-}
+#include<stdio.h> 
+void main()  
+{  
+    printf("Welcome to JavaTpoint");  // print the statement.  
+}  
