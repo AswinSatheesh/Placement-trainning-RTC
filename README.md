@@ -4,5 +4,3 @@
 # -          gcc filename.c -o filename
 # -          ./filename
 
-
-![alt text](http://url/to/c_program_run_instruction_image.png)
