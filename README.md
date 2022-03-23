@@ -4,3 +4,4 @@
 # -          gcc filename.c -o filename
 # -          ./filename
 
+# for more information refer this link - https://linuxhint.com/compile-run-c-program-linux/
