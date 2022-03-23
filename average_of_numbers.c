@@ -20,7 +20,7 @@ int main()
     
     printf("Sum of the numbers are: %d\n",sum);
     average = sum/5;
-    printf("Average of 5 number is : %d",average);
+    printf("Average of 5 number is : %d\n",average);
     
     return 0;
 }
