@@ -1,4 +1,5 @@
 //copy of string.
+hw- first letter capital
 
 #include<stdio.h>
 int main(){
