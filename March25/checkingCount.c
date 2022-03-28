@@ -11,7 +11,7 @@ void EvnOddCount(int n){
         }
         else{
             OddCount++;
-            printf("odd numbers are : %d\n",i);
+             printf("odd numbers are : %d\n",i);
         }
          //printf("%d is even \n",i);
     }
@@ -21,6 +21,6 @@ void EvnOddCount(int n){
 int main(){
     int num;
     printf("Enter the number :");
-    scanf("%d",&num);
+    scanf("%d",&num); 
     EvnOddCount(num);
 }

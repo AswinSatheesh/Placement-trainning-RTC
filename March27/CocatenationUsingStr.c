@@ -3,11 +3,19 @@
 
 #include<stdio.h>
 #include<string.h>
-int main(){
-    char s1[30] = "Aswin";
+#include<ctype.h>
+int main(){ 
+    char s1[30] = "aswin";
     char s2[15] = "Satheesh";
-    strcat(s1, s2);
-    printf("%s",s1);
+    // strcat(s1, s2);
+    // printf("%s",s1);
+
+    char s1 = toupper(s1[0]);
+    printf("First letter capitalized : %s" , s1);
+    
+    // strncat(s1,s2,3);
+    // printf("%s",s1);
+    // puts(s1);
 
     return 0;
 }
