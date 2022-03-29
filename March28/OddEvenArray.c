@@ -7,7 +7,9 @@ int main(){
     int odd[10];
     int evncount = 0;
     int oddcount = 0;
-    for(int i = 0; i < 5; i++){
+    int length = 0;
+    length = sizeof(array)/sizeof(int);  // to find the length of an array.
+    for(int i = 0; i < length; i++){
         if(array[i] % 2 == 0){
             // printf("Even : %d \n",array[i]);
             even[evncount] = array[i];
