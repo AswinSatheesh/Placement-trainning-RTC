@@ -1,7 +1,7 @@
 #include<stdio.h>
 int main()
 {
-    char arr[3][4] ={"rath","inam","tech"};
+    char arr[3][4] ={"rath","inam","tech"}; 
     for (int i=0;i<3;i++){
         scanf("%s",&arr[i][0]);
     }
