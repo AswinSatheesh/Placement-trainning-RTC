@@ -5,19 +5,21 @@
 int main(){
     char name[50] ={"RATHINAM TECHNICAL CAMPUS"};
     int length = 0;
-    int letterCount = 0;
+    int letterCount = 1;
     for(int i = 0; name[i]!= '\0'; i++){
         length++;
     }
     printf("Length : %d \n",length);
     printf("%s \n",name);
     for(int j = 0; j < length; j++){
-        for(int k = 0; k < length; k++){
+        for(int k = j + 1; k < length; k++){
             if(name[j] == name[k]){
                 letterCount++;
+                name[k] = ' ';
             }
         }
-        if(letterCount > 1){
+
+        if(letterCount > 1 && name[j] != ' '){
              printf("<%c, %d> \n",name[j],letterCount);
         }
         letterCount = 0;
