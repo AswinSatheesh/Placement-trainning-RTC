@@ -9,11 +9,11 @@ int main(){
             break;
         }
     }
-    if(f == 1){
-        printf("Perfect square.");
-    }
-    else{
-        printf("Not a perfect square.");
-    }
+        if(f == 1){
+            printf("Perfect square.");
+        }
+        else{
+            printf("Not a perfect square.");
+        }
     return 0;
 }
