@@ -18,7 +18,7 @@ int main(){
         index++;
     }
 
-    printf("After reversing the string : %s",string2);
+    printf("After reversing the string : %s \n",string2);
 
     return 0;
 }
