@@ -1,6 +1,7 @@
 //This is a prgm to swap the first and last element of array,  and swap second and second last  so on.......
 //ip - 3,8,9,13,15,4
 //o/p - 4,15,13,9,8,3
+
 #include <stdio.h>
 int main(){
     int array[] = {3,8,9,13,15,4};

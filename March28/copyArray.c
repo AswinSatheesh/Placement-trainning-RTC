@@ -18,6 +18,5 @@ int main(){
         printf("%d ", arrcpy[k]);
     }
 
-
     return 0;
 }
