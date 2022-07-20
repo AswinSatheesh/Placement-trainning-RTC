@@ -1,1 +1,6 @@
 #psql - password : py38 | (no user name)
+
+step 1 : open windows start bar 
+step 2 : search psql
+step 3 : leave local host , database , port, username,
+step 4 : password - py38
