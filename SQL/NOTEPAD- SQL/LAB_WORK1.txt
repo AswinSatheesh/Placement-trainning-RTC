@@ -1,0 +1,322 @@
+Server [localhost]:
+Database [postgres]:
+Port [5432]:
+Username [postgres]:
+Password for user postgres:
+psql (14.2)
+WARNING: Console code page (437) differs from Windows code page (1252)
+         8-bit characters might not work correctly. See psql reference
+         page "Notes for Windows users" for details.
+Type "help" for help.
+
+postgres=# CREATE DATABASE Mydb;
+CREATE DATABASE
+postgres=# \c mydb;
+You are now connected to database "mydb" as user "postgres".
+mydb=# CREATE TABLE STUDENT;
+ERROR:  syntax error at or near ";"
+LINE 1: CREATE TABLE STUDENT;
+                            ^
+mydb=# CREATE TABLE STUDENT(ID INT PRIMARYKEY,NAME VARCHAR(20) NOTNULL,PHONE_NUMBER BIGINT UNIQUE,ADDRESS VARCHAR(25),AGE INT CHECK(AGE >=18));
+ERROR:  syntax error at or near "PRIMARYKEY"
+LINE 1: CREATE TABLE STUDENT(ID INT PRIMARYKEY,NAME VARCHAR(20) NOTN...
+                                    ^
+mydb=# CREATE TABLE STUDENT(ID INT PRIMARY KEY,NAME VARCHAR(20) NOT NULL,PHONE_NUMBER BIGINT UNIQUE,ADDRESS VARCHAR(25),AGE INT CHECK(AGE >=18));
+CREATE TABLE
+mydb=# SELECT * FROM STUDENT;
+ id | name | phone_number | address | age
+----+------+--------------+---------+-----
+(0 rows)
+
+
+mydb=# \d STUDENT;
+                        Table "public.student"
+    Column    |         Type          | Collation | Nullable | Default
+--------------+-----------------------+-----------+----------+---------
+ id           | integer               |           | not null |
+ name         | character varying(20) |           | not null |
+ phone_number | bigint                |           |          |
+ address      | character varying(25) |           |          |
+ age          | integer               |           |          |
+Indexes:
+    "student_pkey" PRIMARY KEY, btree (id)
+    "student_phone_number_key" UNIQUE CONSTRAINT, btree (phone_number)
+Check constraints:
+    "student_age_check" CHECK (age >= 18)
+
+
+mydb=# INSERT INTO STUDENT(1,'SHINJU',8888888888,'KERALA',21);
+ERROR:  syntax error at or near "1"
+LINE 1: INSERT INTO STUDENT(1,'SHINJU',8888888888,'KERALA',21);
+                            ^
+mydb=# INSERT INTO STUDENT(1,'SHINJU',8888888888,'KERALA',21);
+ERROR:  syntax error at or near "1"
+LINE 1: INSERT INTO STUDENT(1,'SHINJU',8888888888,'KERALA',21);
+                            ^
+mydb=# INSERT INTO STUDENT VALUES(1,'SHINJU',8888888888,'KERALA',21);
+INSERT 0 1
+mydb=# SELECT * FROM STUDENT;
+ id |  name  | phone_number | address | age
+----+--------+--------------+---------+-----
+  1 | SHINJU |   8888888888 | KERALA  |  21
+(1 row)
+
+
+mydb=# INSERT INTO STUDENT VALUES(1,'LIJU',8989898989,32);
+ERROR:  duplicate key value violates unique constraint "student_pkey"
+DETAIL:  Key (id)=(1) already exists.
+mydb=# INSERT INTO STUDENT VALUES(2,NULL,8989898989,32);
+ERROR:  null value in column "name" of relation "student" violates not-null constraint
+DETAIL:  Failing row contains (2, null, 8989898989, 32, null).
+mydb=# INSERT INTO STUDENT VALUES(2,NULL,8989898989,32);
+ERROR:  null value in column "name" of relation "student" violates not-null constraint
+DETAIL:  Failing row contains (2, null, 8989898989, 32, null).
+mydb=# INSERT INTO STUDENT VALUES(1,'LIJU',32);
+ERROR:  duplicate key value violates unique constraint "student_pkey"
+DETAIL:  Key (id)=(1) already exists.
+mydb=# INSERT INTO STUDENT VALUES(2,NULL,8989898989,10);
+ERROR:  null value in column "name" of relation "student" violates not-null constraint
+DETAIL:  Failing row contains (2, null, 8989898989, 10, null).
+mydb=#
+
+
+----------------------------------------------------------------------------
+
+Server [localhost]:
+Database [postgres]:
+Port [5432]:
+Username [postgres]:
+Password for user postgres:
+psql (14.2)
+WARNING: Console code page (437) differs from Windows code page (1252)
+         8-bit characters might not work correctly. See psql reference
+         page "Notes for Windows users" for details.
+Type "help" for help.
+
+postgres=# \c mydb
+You are now connected to database "mydb" as user "postgres".
+mydb=# select * from student;
+ id |  name  | phone_number | address | age
+----+--------+--------------+---------+-----
+  1 | SHINJU |   8888888888 | KERALA  |  21
+(1 row)
+
+
+mydb=# CREATE TABLE EMPLOYEE_DETAILS(EmpId INT PRIMARY KEY,FULLNAME VARCHAR(20) NOT NULL,ManagerId INT UNIQUE KEY,DateOfJoining DATE NOT NULL,CITY VARCHAR(20));
+ERROR:  syntax error at or near "KEY"
+LINE 1: ...ULLNAME VARCHAR(20) NOT NULL,ManagerId INT UNIQUE KEY,DateOf...
+                                                             ^
+mydb=# CREATE TABLE EMPLOYEE_DETAILS(EmpId INT PRIMARY KEY,FULLNAME VARCHAR(20) NOT NULL,ManagerId INT UNIQUE,DateOfJoining DATE NOT NULL,CITY VARCHAR(20));
+CREATE TABLE
+mydb=# SELECT * FROM EMPLOYEE_DETAILS
+mydb-# SELECT * FROM EMPLOYEE_DETAILS;
+ERROR:  syntax error at or near "SELECT"
+LINE 2: SELECT * FROM EMPLOYEE_DETAILS;
+        ^
+mydb=# SELECT * FROM EMPLOYEE_DETAILS;
+ empid | fullname | managerid | dateofjoining | city
+-------+----------+-----------+---------------+------
+(0 rows)
+
+
+mydb=# INSERT INTO EMPLOYEE_DETAILS VALUES(121,'JOHON SNOW',321,01/31,2014,'TORONTO');
+ERROR:  INSERT has more expressions than target columns
+LINE 1: ...EE_DETAILS VALUES(121,'JOHON SNOW',321,01/31,2014,'TORONTO')...
+                                                             ^
+mydb=# INSERT INTO EMPLOYEE_DETAILS VALUES(121,'JOHON_SNOW',321,01/31,2014,'TORONTO');
+ERROR:  INSERT has more expressions than target columns
+LINE 1: ...EE_DETAILS VALUES(121,'JOHON_SNOW',321,01/31,2014,'TORONTO')...
+                                                             ^
+mydb=# INSERT INTO EMPLOYEE_DETAILS VALUES(121,'JOHON SNOW',321,01/31/2014,'TORONTO');
+ERROR:  column "dateofjoining" is of type date but expression is of type integer
+LINE 1: ...INTO EMPLOYEE_DETAILS VALUES(121,'JOHON SNOW',321,01/31/2014...
+                                                             ^
+HINT:  You will need to rewrite or cast the expression.
+mydb=# INSERT INTO EMPLOYEE_DETAILS VALUES(121,'JOHON SNOW',321,01/31/2014,'TORONTO');
+ERROR:  column "dateofjoining" is of type date but expression is of type integer
+LINE 1: ...INTO EMPLOYEE_DETAILS VALUES(121,'JOHON SNOW',321,01/31/2014...
+                                                             ^
+HINT:  You will need to rewrite or cast the expression.
+mydb=# INSERT INTO EMPLOYEE_DETAILS VALUES(121,'JOHONSNOW',321,01/31/2014,'TORONTO');
+ERROR:  column "dateofjoining" is of type date but expression is of type integer
+LINE 1: ... INTO EMPLOYEE_DETAILS VALUES(121,'JOHONSNOW',321,01/31/2014...
+                                                             ^
+HINT:  You will need to rewrite or cast the expression.
+mydb=# INSERT INTO EMPLOYEE_DETAILS VALUES(121,'JOHONSNOW',321,01-31-2014,'TORONTO');
+ERROR:  column "dateofjoining" is of type date but expression is of type integer
+LINE 1: ... INTO EMPLOYEE_DETAILS VALUES(121,'JOHONSNOW',321,01-31-2014...
+                                                             ^
+HINT:  You will need to rewrite or cast the expression.
+mydb=# INSERT INTO EMPLOYEE_DETAILS VALUES(121,'JOHONSNOW',321,'2014O131','TORONTO');
+ERROR:  invalid input syntax for type date: "2014O131"
+LINE 1: ... INTO EMPLOYEE_DETAILS VALUES(121,'JOHONSNOW',321,'2014O131'...
+                                                             ^
+mydb=# INSERT INTO EMPLOYEE_DETAILS VALUES(121,'JOHONSNOW',321,'2014/O1/31','TORONTO');
+ERROR:  invalid input syntax for type date: "2014/O1/31"
+LINE 1: ... INTO EMPLOYEE_DETAILS VALUES(121,'JOHONSNOW',321,'2014/O1/3...
+                                                             ^
+mydb=# INSERT INTO EMPLOYEE_DETAILS VALUES(121,'JOHONSNOW',321,'2014/01/31','TORONTO');
+INSERT 0 1
+mydb=# SELECT * FROM EMPLOYEE_DETAILS;
+ empid | fullname  | managerid | dateofjoining |  city
+-------+-----------+-----------+---------------+---------
+   121 | JOHONSNOW |       321 | 2014-01-31    | TORONTO
+(1 row)
+
+
+mydb=# INSERT INTO EMPLOYEE_DETAILS VALUES(321,'WALTER WHITE',986,'2015/01/30','CALIFORNIA');
+INSERT 0 1
+mydb=# INSERT INTO EMPLOYEE_DETAILS VALUES(421,'KULDEEP RANA',876,'2016/11/27','NEW DELHI');
+INSERT 0 1
+mydb=# SELECT * EMPLOYEE_DETAILS;
+ERROR:  syntax error at or near "EMPLOYEE_DETAILS"
+LINE 1: SELECT * EMPLOYEE_DETAILS;
+                 ^
+mydb=# SELECT * FROM EMPLOYEE_DETAILS;
+ empid |   fullname   | managerid | dateofjoining |    city
+-------+--------------+-----------+---------------+------------
+   121 | JOHONSNOW    |       321 | 2014-01-31    | TORONTO
+   321 | WALTER WHITE |       986 | 2015-01-30    | CALIFORNIA
+   421 | KULDEEP RANA |       876 | 2016-11-27    | NEW DELHI
+(3 rows)
+
+
+mydb=#
+
+------------------------------------------------------------------------------
+
+mydb=# SELECT * FROM EMPLOYEE_DETAILS;
+ empid | fullname  | managerid | dateofjoining |  city
+-------+-----------+-----------+---------------+---------
+   121 | JOHONSNOW |       321 | 2014-01-31    | TORONTO
+(1 row)
+
+
+mydb=# INSERT INTO EMPLOYEE_DETAILS VALUES(321,'WALTER WHITE',986,'2015/01/30','CALIFORNIA');
+INSERT 0 1
+mydb=# INSERT INTO EMPLOYEE_DETAILS VALUES(421,'KULDEEP RANA',876,'2016/11/27','NEW DELHI');
+INSERT 0 1
+mydb=# SELECT * EMPLOYEE_DETAILS;
+ERROR:  syntax error at or near "EMPLOYEE_DETAILS"
+LINE 1: SELECT * EMPLOYEE_DETAILS;
+                 ^
+mydb=# SELECT * FROM EMPLOYEE_DETAILS;
+ empid |   fullname   | managerid | dateofjoining |    city
+-------+--------------+-----------+---------------+------------
+   121 | JOHONSNOW    |       321 | 2014-01-31    | TORONTO
+   321 | WALTER WHITE |       986 | 2015-01-30    | CALIFORNIA
+   421 | KULDEEP RANA |       876 | 2016-11-27    | NEW DELHI
+(3 rows)
+
+
+mydb=# CREATE TABLE EMPLOYEE_SALARY(Project VARCHAR(10),SALARY BIGINT,VARIABLE BIGINT,CONSTRAINT FKEY FOREIGN KEY(empid) references EMPLOYEE_DETAILS(empid));
+ERROR:  column "empid" referenced in foreign key constraint does not exist
+mydb=# CREATE TABLE EMPLOYEE_SALARY(Project VARCHAR(10),SALARY BIGINT,VARIABLE BIGINT,CONSTRAINT FKEY FOREIGN KEY(EMPID) references EMPLOYEE_DETAILS(empid));
+ERROR:  column "empid" referenced in foreign key constraint does not exist
+mydb=# CREATE TABLE EMPLOYEE_SALARY(Project VARCHAR(10),SALARY BIGINT,VARIABLE BIGINT,CONSTRAINT FKEY FOREIGN KEY(EMPID)REFERENCES EMPLOYEE_DETAILS(empid));
+ERROR:  column "empid" referenced in foreign key constraint does not exist
+mydb=# CREATE TABLE EMPLOYEE_SALARY(Project VARCHAR(10),SALARY BIGINT,VARIABLE BIGINT,CONSTRAINT FKEY FOREIGN KEY(EMPID)REFERENCES EMPLOYEE_DETAILS(EMPID));
+ERROR:  column "empid" referenced in foreign key constraint does not exist
+mydb=# CREATE TABLE EMPLOYEE_SALARY(Project VARCHAR(10),SALARY BIGINT,VARIABLE BIGINT,EMPID INT,CONSTRAINT FKEY FOREIGN KEY(EMPID)REFERENCES EMPLOYEE_DETAILS(EMPID));
+CREATE TABLE
+mydb=# INSERT INTO EMPLOYEE_SALARY VALUES(121,'P1',8000,500);
+ERROR:  invalid input syntax for type bigint: "P1"
+LINE 1: INSERT INTO EMPLOYEE_SALARY VALUES(121,'P1',8000,500);
+                                               ^
+mydb=# INSERT INTO EMPLOYEE_SALARY VALUES(121,8000,500,'P1');
+ERROR:  invalid input syntax for type integer: "P1"
+LINE 1: INSERT INTO EMPLOYEE_SALARY VALUES(121,8000,500,'P1');
+                                                        ^
+mydb=# INSERT INTO EMPLOYEE_SALARY(EMPID,PROJECT,SALARY,VARIABLE) VALUES(121,'P1',8000,500);
+INSERT 0 1
+mydb=# INSERT INTO EMPLOYEE_SALARY(EMPID,PROJECT,SALARY,VARIABLE) VALUES(321,'P2',11000,1000),(421,'P1',12000,0);
+INSERT 0 2
+mydb=# SELECT * FROM EMPLOYEE;
+ERROR:  relation "employee" does not exist
+LINE 1: SELECT * FROM EMPLOYEE;
+                      ^
+mydb=# SELECT * FROM EMPLOYEE_SALARY;
+ project | salary | variable | empid
+---------+--------+----------+-------
+ P1      |   8000 |      500 |   121
+ P2      |  11000 |     1000 |   321
+ P1      |  12000 |        0 |   421
+(3 rows)
+
+
+mydb=# SELECT EMPID,FULL NAME FROM EMPLOYEE_DETAILS WHERE MANAGERID =986;
+ERROR:  syntax error at or near "NAME"
+LINE 1: SELECT EMPID,FULL NAME FROM EMPLOYEE_DETAILS WHERE MANAGERID...
+                          ^
+mydb=# SELECT EMPID,FULLNAME FROM EMPLOYEE_DETAILS WHERE MANAGERID =986;
+ empid |   fullname
+-------+--------------
+   321 | WALTER WHITE
+(1 row)
+
+
+mydb=# SELECT DISTINCT PROJECT FROM EMPLOYEE_DETAILS;
+ERROR:  column "project" does not exist
+LINE 1: SELECT DISTINCT PROJECT FROM EMPLOYEE_DETAILS;
+                        ^
+mydb=# SELECT DISTINCT PROJECT FROM EMPLOYEE_SALARY;
+ project
+---------
+ P2
+ P1
+(2 rows)
+
+
+mydb=# SELECT COUNT(*) FROM  EMPLOYEE_SALARY WHERE PROJECT = 'P1';
+ count
+-------
+     2
+(1 row)
+
+
+mydb=# SELECT COUNT(*) FROM  EMPLOYEE_SALARY WHERE PROJECT =P1;
+ERROR:  column "p1" does not exist
+LINE 1: SELECT COUNT(*) FROM  EMPLOYEE_SALARY WHERE PROJECT =P1;
+                                                             ^
+mydb=# SELECT COUNT(*) FROM  EMPLOYEE_SALARY WHERE PROJECT = 'P1';
+ count
+-------
+     2
+(1 row)
+
+
+mydb=# SELECT MAX(*) FROM EMPLOYEE_SALARY;
+ERROR:  function max() does not exist
+LINE 1: SELECT MAX(*) FROM EMPLOYEE_SALARY;
+               ^
+HINT:  No function matches the given name and argument types. You might need to add explicit type casts.
+mydb=# SELECT MAX(SALARY) FROM EMPLOYEE_SALARY;
+  max
+-------
+ 12000
+(1 row)
+
+
+mydb=# SELECT MIN(SALARY),AVG(SALARY) FROM EMPLOYEE_SALARY;
+ min  |          avg
+------+------------------------
+ 8000 | 10333.3333333333333333
+(1 row)
+
+
+mydb=# SELECT EMPID FROM EMPLOYEE_SALARY WHERE SALARY BETWEEN 9000 AND 15000;
+ empid
+-------
+   321
+   421
+(2 rows)
+
+
+mydb=# SELECT EMPID FROM EMPLOYEE_SALARY WHERE SALARY BETWEEN 1000 AND 10000;
+ empid
+-------
+   121
+(1 row)
+
+
+mydb=#
