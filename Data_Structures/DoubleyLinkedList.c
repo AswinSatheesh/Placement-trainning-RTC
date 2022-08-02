@@ -14,6 +14,7 @@ int main(){
     insert();
     display();
     deletion();
+    display();
 
     return 0;
 }
@@ -62,7 +63,7 @@ void display()
 void deletion()
 {
     int element;
-    printf("Enter the element to delete form the doubly linked list: \n");
+    printf(" \n Enter the element to delete form the doubly linked list: \n");
     scanf("%d",&element);
     temp = head;
     while(temp->data != element)
@@ -74,6 +75,13 @@ void deletion()
     }
     else if(temp ->prev == 0)
     {
-        //not completed
+        head = temp->next;
+        head->prev = 0;
     }
+    else
+    {
+        temp->next->prev = temp->prev->next;
+        temp->prev->next = temp->next;
+    }
+    free(temp);
 }
