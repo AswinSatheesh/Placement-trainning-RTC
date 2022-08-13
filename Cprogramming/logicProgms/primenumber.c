@@ -21,5 +21,6 @@ int main()
             break;
         }
     }
+    int resutl = myfun();
     return 0;
 }

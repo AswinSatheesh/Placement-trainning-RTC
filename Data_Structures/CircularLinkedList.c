@@ -1,5 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
+void insert();
+void display();
 struct node
 {
     int data;
@@ -8,30 +10,44 @@ struct node
 int main()
 {
    insert();
-
-
+   display();
 
     return 0;
 }
 
 void insert()
 {
-    newnode = malloc(sizeof(struct node));
-    printf("Enter the data to insert: \n");
-    scanf("%d",newnode->data);
-    newnode->next = 0;
-    if(head == 0)
+    int choice; 
+    do
     {
-        head = newnode;
-        newnode->next = head;  
-    }
-    else
-    {
-        temp = head;
-        while(temp->next != head)
+        newnode = malloc(sizeof(struct node));
+        printf("Enter the data to insert: \n");
+        scanf("%d",&newnode->data);
+        newnode->next = 0;
+        if(head == 0)
         {
-            temp = temp->next;
+            head = temp = newnode;
         }
-    }
+        else
+        {
+            temp->next = newnode;
+            temp = newnode;
 
+        }
+        temp->next = head;
+        printf("Enter your choice: \n");
+        scanf("%d",&choice);
+    }while(choice);
+    
+}
+
+void display()
+{
+    temp = head;
+    while(temp->next != head)
+    {
+        printf("%d ",temp->data);
+        temp = temp->next;
+    }
+    printf("%d ",temp->data);
 }
