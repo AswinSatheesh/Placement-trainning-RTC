@@ -29,8 +29,8 @@ void insert()
     do
     {
         newnode=(struct node*)malloc(sizeof(struct node));
-        printf("enter the value to insert");
-        scanf("%d ",&newnode->data);
+        printf("enter the value to insert : \n");
+        scanf("%d",&newnode->data);
         
         newnode->next=NULL;
         newnode->prev=NULL;
@@ -48,8 +48,8 @@ void insert()
             temp->next=newnode;
             newnode->prev=temp;
         }
-        printf("enter the choice");
-        scanf("%d ",&choice);
+        printf("enter the choice : \n");
+        scanf("%d",&choice);
         
     }while(choice);
     
