@@ -1,48 +1,48 @@
 #include <stdio.h>
-int count_occur(int a[],char map[],int num_elements,int start);
+
+int count_occur(int a[], char map[], int num_elements, int start);
 void print_array(int a[], int num_elements);
-int main()
+
+int main(void)
 {
-    int a[] = {1,0,1,0,0,2};
-    int length = sizeof(a)/sizeof(a[0]);
+    int a[20] = {2, 5, 0, 5, 5, 66, 3, 78, -4, -56, 2, 66, -4, -4, 2, 0, 66, 17, 17, -4};
     char map[20] = {0};
     int num_occ, i;
 
     printf("\nArray:\n");
-    print_array(a,length);
+    print_array(a, 20);
 
-    for(i = 0; i<length;i++)
+    for (i = 0; i < 20; i++)
     {
-        if(map[i] == 0){
-            num_occ = count_occur(a,map,length,i);
-            printf("The value %d was found %d times.\n",a[i],num_occ);
+        if (map[i] == 0) {
+            num_occ = count_occur(a, map, 20, i);
+            printf("The value %d was found %d times.\n", a[i], num_occ);
         }
     }
+}
 
-    int count_occut(int a[],char map[],int num_elements, int start)
-    {
+int count_occur(int a[], char map[], int num_elements, int start)
+/* checks array a for number of occurrances of value */
+{
     int i, count = 0, value = a[start];
-    for(i = start; i<num_elements;i++)
+
+    for (i = start; i < num_elements; i++)
     {
-        if(a[i] == value)
+        if (a[i] == value)
         {
-            map[i] =1;
-            ++count;
+            map[i] = 1;
+            ++count; /* it was found */
         }
     }
     return (count);
-    }
-
-    void print_array(int a[],int num_elements)
-    {
-    int i;
-    for(i = 0; i<num_elements;i++)
-    {
-        printf("%d ",a[i]);
-    }
-    printf("\n");
-    }
-    
-    return 0;
 }
 
+void print_array(int a[], int num_elements)
+{
+    int i;
+    for (i = 0; i< num_elements; i++)
+    {
+        printf("%d ", a[i]);
+    }
+    printf("\n");
+}
