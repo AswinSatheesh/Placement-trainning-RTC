@@ -18,15 +18,10 @@ public class Differencesum{
                 Oddsum = Oddsum + i;
             }
         }
-        if(Evensum > Oddsum)
-        {
-            Totaldiff = Evensum - Oddsum;
-        }
-        else{
-            Totaldiff = Oddsum - Evensum;
-        }
         
-        System.out.println("Total difference : " + Totaldiff);
+        Totaldiff = Evensum - Oddsum;
+        
+        System.out.println("Total difference : " + Math.abs(Totaldiff));
 
     }
 }
